@@ -12,20 +12,14 @@ import org.apache.spark.sql.SparkSession
 
 object TagContext {
   def main(args: Array[String]): Unit = {
-
-    System.setProperty("hadoop.home.dir", "D:\\Huohu\\下载\\hadoop-common-2.2.0-bin-master")
     if(args.length!=4){
       println("目录不正确")
       sys.exit()
     }
-
     val Array(inputPath,docs,stopwords,day)=args
-
     // 创建Spark上下文
     val spark = SparkSession.builder().appName("Tags").master("local").getOrCreate()
     import spark.implicits._
-
-    // 调用HbaseAPI
     val load = ConfigFactory.load()
     // 获取表名
     val HbaseTableName = load.getString("HBASE.tableName")
